@@ -1,0 +1,24 @@
+[
+    {
+        "title": "Inside which HTML element do we put the JavaScript?",
+        "answer-1": "<js>",
+        "answer-2": "<javascript>",
+        "answer-3": "<script>",
+        "answer-4": "<scripting>",
+        "rt-answer": "<script>"
+    },
+    {
+        "title": "Where is the correct place to insert a JavaScript?",
+        "answer-1": "the body section",
+        "answer-2": "head section",
+        "answer-3": "both",
+        "answer-4": "none",
+        "rt-answer": "both"
+    },
+    {
+        "title": "The external JavaScript file must contain the <script> tag.",
+        "answer-1": "true",
+        "answer-2": "false",
+        "rt-answer": "false"
+    }
+]

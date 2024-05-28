@@ -100,6 +100,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
 }
 
 .quiz-app {
@@ -115,9 +116,9 @@ body {
 
 .quiz-app,
 .result-show {
-    width: 400px;
+    width: 100%;
     background-color: #fcfcfc;
-    height: fit-content;
+    height: 500px;
     box-shadow: 0px 0px 20px 0px #ccc;
     padding: 5px 0;
     border-radius: 10px;
@@ -127,13 +128,22 @@ body {
 
 
 .result-show {
-    transform: scale(0);
     display: none;
     height: 400px;
     overflow: auto;
-    transform: translateY(-100%);
+    transform: scale(0) translateX(-50%) translateY(100%);
     opacity: 0;
+    position: absolute;
+    width: 100%;
 }
+
+.result-show.showed {
+    transform: translateY(0) translateX(-50%) scale(1);
+    left: 50%;
+    bottom: -50px;
+    opacity: 1;
+}
+
 
 .result-show .answers .answer {
     opacity: .2;
@@ -171,14 +181,6 @@ body {
 .result-show::-webkit-scrollbar-track {
     background-color: rgba(72, 226, 226, 0.24);
 }
-.result-show.showed {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-    position: relative;
-    left: -20px;
-    bottom: -20px;
-    width: calc(100% + 40px);
-}
 
 /* Start Category */
 .category {
@@ -190,6 +192,7 @@ body {
     border-bottom: 1px solid #ddd;
     padding-bottom: 20px;
     position: relative;
+    transition: .5s;
 }
 
 .category .appear-subjects.active {
@@ -241,7 +244,10 @@ body {
 
 
 .category div {
-    color: var(--main-color-alt);
+    color: var(--main-color);
+}
+.category .sub-name {
+    color: #000;
 }
 
 .category span {
@@ -249,9 +255,24 @@ body {
     font-weight: bold;
 }
 
+.category .subject-name {
+    margin-left: 5px;
+}
+
 /* End Category */
 
 /* Start Quiz Area */
+
+.quiz-area {
+    transition: 1s;
+    background-color:white;
+    color: #000;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0px 0px 20px #ddd;
+    transition: .5s;
+}
 
 .quiz-area.result {
     display: flex;
@@ -262,6 +283,18 @@ body {
 .quiz-area .final-result {
     font-size: 20px;
     font-weight: bold;
+}
+
+.next-scale {
+    transform: scale(1);
+}
+
+.prev-scale {
+    transform: scale(0);
+}
+
+.quiz-area.none {
+    display: none;
 }
 
 .quiz-area .evaluation-result {
@@ -286,6 +319,7 @@ body {
 
 .quiz-area h3 {
     margin-bottom: 20px;
+    margin-top: 10px;
 }
 
 .answers {
@@ -341,6 +375,11 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: white;
+    box-shadow: 0px 0px 20px #ddd;
+    padding: 10px;
+    border-radius: 10px;
+    transition: .5s;
 }
 
 .quiz-footer .bullet {
@@ -369,7 +408,7 @@ body {
     margin-right: 20px;
 }
 
-button {
+button.result-btn {
     display: none;
     background-color: var(--main-color);
     color: white;
@@ -383,7 +422,11 @@ button {
     border: 1px solid var(--main-color);
     position: absolute;
     top: 100%;
-    right: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    transition: 1s;
+    font-size: 0;
 }
 
 button:hover {
@@ -394,24 +437,11 @@ button:hover {
 
 button.show {
     display: block;
+    opacity: .2;
 }
 
-
-/* 
-,
-    {
-        "title": "What Is Preparation The Artificial Ala Ala Ala?",
-        "answer-1": "pla-5",
-        "answer-2": "pla-6",
-        "answer-3": "pla-7",
-        "answer-4": "pla-8",
-        "rt-answer": "pla-8"
-    },
-    {
-        "title": "What Is Preparation The .....?",
-        "answer-1": "answer-1",
-        "answer-2": "answer-2",
-        "answer-3": "answer-3",
-        "answer-4": "answer-4",
-        "rt-answer": "answer-4"
-    } */
+button.amazing {
+    opacity: 1;
+    width: 100%;
+    font-size: 20px;
+};

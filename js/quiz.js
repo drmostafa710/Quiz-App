@@ -36,6 +36,7 @@ let set_interval;
 lis.forEach(li =>{
     li.addEventListener("click", () => {
         quesLink(`https://raw.githubusercontent.com/drmostafa710/${li.textContent}/main/${li.textContent}.json`)
+        // quesLink(`../json files/${li.textContent}.json`)
         lis.forEach(e => e.classList.remove("active"));
         li.classList.add("active")
         
@@ -70,16 +71,16 @@ lis.forEach(li =>{
         }
     })
 })
-
-let duration = 30;
+let duration = 45;
 //fetch the ques
 function quesLink(link) {
 let request = new XMLHttpRequest();
 request.onload = function() {
     let obj = JSON.parse(this.responseText)
     let objLength = Object.keys(JSON.parse(this.responseText)).length
-    
+
         if(this.status === 200 && this.readyState === 4) {
+            
             pageContent(obj[currentIndex], objLength);
 
             let result_show = document.createElement("div")
@@ -89,6 +90,15 @@ request.onload = function() {
             const quizApp = document.querySelector(".quiz-app");
             let btn = document.querySelector(".show");
             
+            [...quizApp.children].forEach(e =>{
+                e.classList.add("prev-scale")
+
+                setTimeout(() => {
+                    e.classList.remove("prev-scale")
+                    e.classList.add("next-scale")
+                },100)
+            })
+                
             mainCountDown(duration);
             
             btn.addEventListener("click", () => {
@@ -143,13 +153,14 @@ request.onload = function() {
 
                                     //Must Access Them here to Clone the Last Ques
                                     const h = document.querySelector(".quiz-area .ques")
-                                    const answers = document.querySelector(".answers")
-                        
-                                    createResultShow(h, answers, result_show)
+                                    const answers = document.querySelector(".answers");
+                                    
                                     btn.style.display = 'none'
                                     quizFooter.remove();
                                     bullets.remove();                                        
-                                    timer.remove();                                        
+                                    timer.remove();
+                                    createResultShow(h, answers, result_show);                                    
+
                                     //please return this again
                                     //store result to another box and show it laterally
                                     showResult(
@@ -219,8 +230,8 @@ function pageContent(content, length) {
         
         let answerVal = document.createElement("div")
         answerVal.className = 'answer-value';
-        answerVal.textContent += `${content[`answer-${i}`]}`;
-        answerVal.setAttribute("rt-answer", content[`rt-answer`])
+        answerVal.textContent += `${content[`answer-${i}`].trim()}`;
+        answerVal.setAttribute("rt-answer", content[`rt-answer`].trim())
 
         answer.appendChild(circle)
         answer.appendChild(answerVal)
@@ -249,11 +260,13 @@ function pageContent(content, length) {
     bullets.className = 'bullets'
 
     quizFooter.appendChild(bullets)
+    let bulletCount = 1
     for(i = 0; i < length; i++) {
         let bullet = document.createElement("span");
         bullet.className = "bullet";
         bullets.appendChild(bullet)
         bullets.children[0].classList.add("active");
+        bullet.textContent = bulletCount++
     }
 
     
@@ -370,7 +383,7 @@ function mainCountDown(duration) {
     // let timerParent = document.querySelector(".timerDiv")
     
     let timer = document.querySelector(".timer")
-    
+
     let minutes = document.createElement("span") 
     minutes.className = 'mints'
     
